@@ -2,7 +2,7 @@
 <p align="center">
 	<img alt="logo" width=200" src="images/logo.png">
 </p>
-<h4 align="center">BTC/USDT超级合约</h4>
+<h4 align="center">BTC超级合约</h4>
 <p align="center">
  <img src="https://img.shields.io/badge/-币安交易所-red.svg" alt="Downloads">
  <img src="https://img.shields.io/badge/-智能合约-yellow.svg" alt="Downloads">
