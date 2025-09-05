@@ -28,8 +28,13 @@ vex-api
     ├── ruoyi-kline                   // K线模块 
     ├── ruoyi-mqtt                    // 对接app的socket模块
 ```
+## 3.项目推荐
 
-## 3.合作/购买源码：
+| 项目                                                                    | Star |
+|-----------------------------------------------------------------------|--|
+| [私钥破解、助记词破解,助记词找回](https://github.com/EthCollision/wallet_collission) |  [![GitHub stars](https://img.shields.io/github/stars/EthCollision/wallet_collission.svg?style=social&label=Stars)](https://github.com/EthCollision/wallet_collission)   | 
+
+## 4.合作/购买源码：
  <img src="https://img.shields.io/badge/注意-如需购买源码或者搭建私服，可以联系客服，价格优惠-red.svg" alt="Downloads">
 <table>
   <tr>
@@ -40,14 +45,14 @@ vex-api
   </tr>
 </table>
 
-## 4.玩法
+## 5.玩法
 
 用户A 选择30s，然后杠杆倍数是100倍，开仓金额10,000USDT,赔率为80% ,当前BTC/USDT的价格是100,000<br>
 开多,如果30s后，当前BTC/USDT的价格是101,000，则用户盈利的计算方式：<br>
 (10000*100)/10000=100BTC 当前开了100个BTC <br>
 100*(101000-100000)*0.8=80000USDT  <br>
 
-## 5.系统效果图
+## 6.系统效果图
 
 <table>
     <tr>
@@ -85,9 +90,9 @@ vex-api
 
 </table>
 
-## 6.法律风险
+## 7.法律风险
 法律风险第一条：不要触犯中华人民共和国的法律条例。</br>
 技术无罪，请在法律范围内使用本框架。
 
-## 7.特别注意
+## 8.特别注意
 任何使用本源码从事商业活动，对别人和自己造成损失的，本人概不负责！
