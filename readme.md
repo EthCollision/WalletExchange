@@ -2,7 +2,7 @@
 <p align="center">
 	<img alt="logo" width=200" src="images/logo.png">
 </p>
-<h4 align="center">BTC超级合约</h4>
+<h4 align="center">BTC/USDT超级合约</h4>
 <p align="center">
  <img src="https://img.shields.io/badge/-币安交易所-red.svg" alt="Downloads">
  <img src="https://img.shields.io/badge/-智能合约-yellow.svg" alt="Downloads">
@@ -34,8 +34,10 @@ vex-api
 |-----------------------------------------------------------------------|--|
 | [私钥破解、助记词破解,助记词找回](https://github.com/EthCollision/wallet_collission) |  [![GitHub stars](https://img.shields.io/github/stars/EthCollision/wallet_collission.svg?style=social&label=Stars)](https://github.com/EthCollision/wallet_collission)   | 
 
-## 4.合作/购买源码：
- <img src="https://img.shields.io/badge/注意-如需购买源码或者搭建私服，可以联系客服，价格优惠-red.svg" alt="Downloads">
+## 4.合作/购买源码 联系客服：
+ <img src="https://img.shields.io/badge/-演示-red.svg" alt="Downloads">
+ <img src="https://img.shields.io/badge/-搭建私服-yellow.svg" alt="Downloads">
+ <img src="https://img.shields.io/badge/-购买源码-blue.svg" alt="Downloads">
 <table>
   <tr>
     <td >客服TG:BitCoin1688</td>
@@ -90,9 +92,5 @@ vex-api
 
 </table>
 
-## 7.法律风险
-法律风险第一条：不要触犯中华人民共和国的法律条例。</br>
-技术无罪，请在法律范围内使用本框架。
-
-## 8.特别注意
+## 7.特别注意
 任何使用本源码从事商业活动，对别人和自己造成损失的，本人概不负责！
