@@ -49,10 +49,7 @@ vex-api
 
 ## 5.玩法
 
-用户A 选择30s，然后杠杆倍数是100倍，开仓金额10,000USDT,赔率为80% ,当前BTC/USDT的价格是100,000<br>
-开多,如果30s后，当前BTC/USDT的价格是101,000，则用户盈利的计算方式：<br>
-(10000**100)/10000=100BTC 当前开了100个BTC <br>
-100*(101000-100000)*0.8=80000USDT  <br>
+<img  src="images/wanfa.png"/>
 
 ## 6.系统效果图
 
@@ -64,6 +61,14 @@ vex-api
     <tr>
         <td ><img width="400" src="images/index.png"/></td>
         <td ><img width="400" src="images/trade.png"/></td>
+    </tr>
+    <tr>
+        <td >市场</td>
+        <td >哈希预测</td>
+    </tr>
+    <tr>
+        <td ><img width="400" src="images/market.png"/></td>
+        <td ><img width="400" src="images/market-hash.png"/></td>
     </tr>
     <tr>
         <td >资产</td>
@@ -92,5 +97,8 @@ vex-api
 
 </table>
 
-## 7.特别注意
+## 7.功能介绍
+<img src="images/gongneng.png"/>
+
+## 8.特别注意
 任何使用本源码从事商业活动，对别人和自己造成损失的，本人概不负责！
