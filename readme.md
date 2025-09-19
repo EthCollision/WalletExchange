@@ -15,6 +15,15 @@
  <img src="https://img.shields.io/badge/-币安链-green.svg" alt="Downloads">
 </p>
 
+<div align="center">
+  <p>
+    💻 <strong>演示地址：</strong><a href="http://h5.coinglobal.cc">http://h5.coinglobal.cc</a> 账号：123@qq.com 密码：111111 
+  </p>
+  <p>
+    👥 <strong>源码出售-Telegram客服：</strong> <a href="https://t.me/BitCoin1688">BitCoin1688</a>
+  </p>
+</div>
+
 ## 1.项目简介
 
 BTC超级合约震撼上线，专为短线之王打造。30秒K线，价杠杆从100倍到10000倍自由滑选，方向看对即可放大收益。合约周期内全程零爆仓，系统自动锁仓，无惧插针，安心持仓到结算。链上数据源，公开透明，收益实时实时结算。
