@@ -17,7 +17,7 @@
 
 <div align="center">
   <p>
-    💻 <strong>演示地址：</strong><a href="http://h5.coinglobal.cc">http://h5.coinglobal.cc</a> 账号：123@qq.com 密码：111111 
+    💻 <strong>演示地址：</strong><a href="http://app.vexcoin.top">http://app.vexcoin.top</a> 账号：123@qq.com 密码：111111 
   </p>
   <p>
     👥 <strong>源码出售-Telegram客服：</strong> <a href="https://t.me/BitCoin1688">BitCoin1688</a>
