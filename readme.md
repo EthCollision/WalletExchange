@@ -3,7 +3,7 @@
 	<img alt="logo" width=200" src="images/logo.png">
 </p>
 <h4 align="center">BTC/USDT超级合约</h4>
-<h4 align="center">本系统源码出售中，需要的请联系客服</h4>
+<h4 align="center">本系统源码出售（3,000U），如有需要的请联系客服</h4>
 <p align="center">
  <img src="https://img.shields.io/badge/-币安交易所-red.svg" alt="Downloads">
  <img src="https://img.shields.io/badge/-智能合约-yellow.svg" alt="Downloads">
@@ -20,7 +20,7 @@
     💻 <strong>演示地址：</strong><a href="http://app.vexcoin.top">http://app.vexcoin.top</a> 账号：123@qq.com 密码：111111 
   </p>
   <p>
-    👥 <strong>源码出售-Telegram客服：</strong> <a href="https://t.me/BitCoin1688">BitCoin1688</a>
+    👥 <strong>源码出售(3,000U)如有需要可以联系客服-Telegram客服：</strong> <a href="https://t.me/BitCoin1688">BitCoin1688</a>
   </p>
 </div>
 
