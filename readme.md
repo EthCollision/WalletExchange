@@ -12,8 +12,8 @@
     <img src="https://img.shields.io/badge/-离线安全-purple.svg" style="margin:0 5px">
 <table>
     <tr>
-        <td ><img alt="logo"  src="./img/gif1.gif"></td>
-        <td ><img alt="logo"  src="./img/gif2.gif"></td>
+        <td ><img alt="logo"  src="https://block-oss.oss-cn-hongkong.aliyuncs.com/gif1.gif"></td>
+        <td ><img alt="logo"  src="https://block-oss.oss-cn-hongkong.aliyuncs.com/gif2.gif"></td>
     </tr>
 </table>
 
@@ -238,5 +238,4 @@ A: 尽可能提供准确的助记词信息和正确的顺序，减少随机规�
 - 用户应对使用本工具的行为负责，确保符合当地法律法规
 - 严禁将本工具用于盗窃、欺诈等违法犯罪活动
 - 开发者不对用户的任何违法行为承担责任
-
 
