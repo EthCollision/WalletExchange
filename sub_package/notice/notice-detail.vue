@@ -1,0 +1,142 @@
+<template>
+  <view class="notice-detail-page">
+    <!-- 顶部导航栏 -->
+    <custom-navbar title="公告详情" :show-back="true" :back-path="backPath" />
+
+    <!-- 公告详情内容 -->
+    <scroll-view scroll-y class="detail-scroll">
+      <view class="detail-container">
+        <view class="detail-header">
+          <text class="detail-title">{{ notice.title }}</text>
+          <text class="detail-time">{{ notice.time }}</text>
+        </view>
+        
+        <view class="detail-content">
+          <text class="content-text">{{ notice.content }}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import { onLoad } from '@dcloudio/uni-app'
+
+// 返回路径 - 固定返回到公告列表页
+const backPath = '/sub_package/notice/notice-list'
+
+// 公告详情
+const notice = ref({
+  id: 0,
+  title: '',
+  time: '',
+  content: ''
+})
+
+// 模拟数据源(实际项目中应该从API获取)
+const mockDataSource = [
+  { id: 1, title: 'XRP/USDT 杠杆倍数调整公告', time: '2025/10/21 10:03:05', content: 'XRP/USDT 交易对的最大杠杆倍数已调整为20倍,请及时检查您的持仓情况。为了更好地保护用户资产安全,我们会根据市场波动情况定期调整各交易对的杠杆倍数。' },
+  { id: 2, title: 'BNB/USDT 杠杆倍数调整公告', time: '2025/10/21 10:03:05', content: 'BNB/USDT 交易对的最大杠杆倍数已调整为15倍,请及时检查您的持仓情况。' },
+  { id: 3, title: 'SOL/USDT 杠杆倍数调整公告', time: '2025/10/21 10:03:05', content: 'SOL/USDT 交易对的最大杠杆倍数已调整为10倍,请及时检查您的持仓情况。' },
+  { id: 4, title: 'BTC/USDT 杠杆倍数调整公告', time: '2025/10/21 10:03:05', content: 'BTC/USDT 交易对的最大杠杆倍数已调整为125倍,请及时检查您的持仓情况。' },
+  { id: 5, title: 'ETH/USDT 杠杆倍数调整公告', time: '2025/10/20 15:30:00', content: 'ETH/USDT 交易对的最大杠杆倍数已调整为75倍,请及时检查您的持仓情况。' },
+  { id: 6, title: 'ADA/USDT 新交易对上线公告', time: '2025/10/20 14:00:00', content: 'ADA/USDT 交易对现已上线,支持最高10倍杠杆交易。欢迎广大用户参与交易。' },
+  { id: 7, title: 'DOT/USDT 杠杆倍数更新通知', time: '2025/10/20 12:00:00', content: 'DOT/USDT 交易对的最大杠杆倍数已更新为20倍。' },
+  { id: 8, title: 'LINK/USDT 系统维护通知', time: '2025/10/19 18:00:00', content: 'LINK/USDT 将于2025年10月22日进行系统维护,维护期间交易功能将暂停使用,请提前做好准备。' },
+  { id: 9, title: 'MATIC/USDT 价格异动提醒', time: '2025/10/19 16:30:00', content: 'MATIC/USDT 价格创新高,请密切关注您的持仓情况,注意风险控制。' },
+  { id: 10, title: 'AVAX/USDT 上线公告', time: '2025/10/19 14:00:00', content: 'AVAX/USDT 现已正式上线,支持最高15倍杠杆交易。' },
+  { id: 11, title: 'UNI/USDT 手续费优惠活动', time: '2025/10/18 10:00:00', content: 'UNI/USDT 交易手续费降低20%,优惠活动持续一个月,欢迎参与交易。' },
+  { id: 12, title: 'ATOM/USDT 系统升级通知', time: '2025/10/18 09:00:00', content: 'ATOM/USDT 交易系统将于今晚零点进行升级,预计持续1小时。' },
+  { id: 13, title: 'FTM/USDT 新功能上线', time: '2025/10/17 17:00:00', content: 'FTM/USDT 现已支持止盈止损功能,帮助您更好地管理风险。' },
+  { id: 14, title: 'NEAR/USDT 杠杆调整通知', time: '2025/10/17 15:00:00', content: 'NEAR/USDT 最大杠杆倍数提升至25倍。' },
+  { id: 15, title: 'ALGO/USDT 交易大赛开启', time: '2025/10/17 12:00:00', content: '参与 ALGO/USDT 交易大赛,赢取丰厚奖励!活动时间:10月20日-10月30日。' },
+  { id: 16, title: 'VET/USDT 维护公告', time: '2025/10/16 18:00:00', content: 'VET/USDT 将于10月20日进行例行维护,请提前做好准备。' },
+  { id: 17, title: 'XTZ/USDT 价格波动提醒', time: '2025/10/16 16:00:00', content: 'XTZ/USDT 出现较大价格波动,请谨慎交易,做好风险控制。' },
+  { id: 18, title: 'THETA/USDT 新币上线', time: '2025/10/16 14:00:00', content: 'THETA/USDT 现已开放交易,支持10倍杠杆。' },
+  { id: 19, title: 'EGLD/USDT 手续费调整', time: '2025/10/15 10:00:00', content: 'EGLD/USDT 交易手续费已调整,详情请查看费率说明。' },
+  { id: 20, title: 'AAVE/USDT 杠杆更新', time: '2025/10/15 09:00:00', content: 'AAVE/USDT 杠杆倍数已更新至30倍最大值。' },
+  { id: 21, title: 'SUSHI/USDT 交易预警', time: '2025/10/14 17:00:00', content: 'SUSHI/USDT 检测到高波动性,请谨慎交易。' },
+  { id: 22, title: 'COMP/USDT 系统升级', time: '2025/10/14 15:00:00', content: 'COMP/USDT 交易系统将于今晚进行升级维护。' },
+  { id: 23, title: 'YFI/USDT 价格发现阶段', time: '2025/10/14 12:00:00', content: 'YFI/USDT 进入价格发现阶段,市场波动可能较大。' },
+  { id: 24, title: 'SNX/USDT 维护通知', time: '2025/10/13 18:00:00', content: 'SNX/USDT 将于10月16日进行维护。' },
+  { id: 25, title: 'CRV/USDT 交易暂停通知', time: '2025/10/13 16:00:00', content: 'CRV/USDT 交易将因系统更新暂时暂停,恢复时间另行通知。' }
+]
+
+// 加载公告详情
+const loadNoticeDetail = (id) => {
+  const found = mockDataSource.find(item => item.id === parseInt(id))
+  if (found) {
+    notice.value = found
+  } else {
+    uni.showToast({
+      title: '公告不存在',
+      icon: 'none'
+    })
+  }
+}
+
+// 页面加载时获取详情
+onLoad((options) => {
+  if (options.id) {
+    loadNoticeDetail(options.id)
+  }
+})
+</script>
+
+<style scoped lang="scss">
+.notice-detail-page {
+  height: 100vh;
+  background-color: #F5F5F5;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* 详情滚动区域 */
+.detail-scroll {
+  flex: 1;
+  height: 100%;
+  width: 100%;
+}
+
+.detail-container {
+  padding: 32rpx;
+}
+
+.detail-header {
+  background-color: #ffffff;
+  padding: 32rpx 24rpx;
+  border-radius: 16rpx;
+  margin-bottom: 24rpx;
+}
+
+.detail-title {
+  display: block;
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #0B0E11;
+  line-height: 1.5;
+  margin-bottom: 16rpx;
+}
+
+.detail-time {
+  display: block;
+  font-size: 24rpx;
+  color: #B7BDC6;
+}
+
+.detail-content {
+  background-color: #ffffff;
+  padding: 32rpx 24rpx;
+  border-radius: 16rpx;
+}
+
+.content-text {
+  font-size: 30rpx;
+  color: #0B0E11;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+</style>

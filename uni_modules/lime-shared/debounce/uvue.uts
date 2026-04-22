@@ -1,0 +1,36 @@
+// @ts-nocheck
+/**
+ * 防抖函数，通过延迟一定时间来限制函数的执行频率。
+ * @param fn 要防抖的函数。
+ * @param wait 触发防抖的等待时间，单位为毫秒。
+ * @returns 防抖函数。
+ */
+export function debounce<A extends any>(fn : (args: A)=> void, wait = 300): (args: A)=> void {
+	let timer = -1
+	
+	return (args: A) => {
+		if (timer >-1) {clearTimeout(timer)};
+		
+		timer = setTimeout(()=>{
+			fn(args)
+		}, wait)
+	}
+};
+
+
+
+// 示例
+// 定义一个函数
+// function saveData(data: string) {
+//   // 模拟保存数据的操作
+//   console.log(`Saving data: ${data}`);
+// }
+
+// // 创建一个防抖函数，延迟 500 毫秒后调用 saveData 函数
+// const debouncedSaveData = debounce(saveData, 500);
+
+// // 连续调用防抖函数
+// debouncedSaveData('Data 1'); // 不会立即调用 saveData 函数
+// debouncedSaveData('Data 2'); // 不会立即调用 saveData 函数
+
+// 在 500 毫秒后，只会调用一次 saveData 函数，输出结果为 "Saving data: Data 2"
