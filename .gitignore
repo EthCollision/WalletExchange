@@ -1,0 +1,12 @@
+dist/
+deploy_versions/
+.temp/
+.rn_temp/
+node_modules/
+.DS_Store
+.swc
+project.private.config.json
+__tests__
+.eslintcache
+.idea/
+template/

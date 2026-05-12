@@ -1,0 +1,140 @@
+<template>
+	<view class="demo-block">
+		<text class="demo-block__title-text ultra">QRCode</text>
+		<text class="demo-block__desc-text">能够将文本转换生成二维码的组件，支持自定义配色和 Logo 配置</text>	
+		<view class="demo-block__body">
+			<view class="demo-block card">
+				<text class="demo-block__title-text large">基础</text>
+				<view class="demo-block__body">
+					<l-qrcode value="https://limeui.qcoon.cn" size="300rpx" :use2d="false"></l-qrcode>
+				</view>	
+			</view>	
+			
+			<view class="demo-block card">
+				<text class="demo-block__title-text large">icon</text>
+				<view class="demo-block__body">
+					<image v-if="image !=''" :src="image" style="width: 300rpx;" mode="widthFix"></image>
+					<view style="flex-direction: row; justify-content: space-between">
+						<l-qrcode ref="qrcodeRef" value="https://limeui.qcoon.cn" size="300rpx" icon="https://img10.360buyimg.com/img/jfs/t1/182127/16/37474/11761/64659c31F0cd84976/21f25b952f03a49a.jpg" iconSize="70rpx"></l-qrcode>
+						<l-qrcode :useCanvasToTempFilePath="true" @success="success" value="https://limeui.qcoon.cn" size="300rpx" icon="https://img10.360buyimg.com/img/jfs/t1/182127/16/37474/11761/64659c31F0cd84976/21f25b952f03a49a.jpg" iconSize="70rpx"></l-qrcode>
+					</view>
+					<button type="primary" style="margin-top: 20rpx;" @click="onClick">生成图片</button>
+				</view>	
+			</view>
+			
+			<view class="demo-block card">
+				<text class="demo-block__title-text large">颜色</text>
+				<view class="demo-block__body">
+					<view style="flex-direction: row; justify-content: space-between">
+						<l-qrcode value="https://limeui.qcoon.cn" size="300rpx" color="rgba(82,196,26,1)"></l-qrcode>
+						<l-qrcode value="https://limeui.qcoon.cn" size="300rpx" color="rgba(22,119,255,1)" bgColor="rgb(245,245,245)"></l-qrcode>
+					</view>	
+				</view>	
+			</view>
+			
+			<view class="demo-block card">
+				<text class="demo-block__title-text large">纠错比例</text>
+				<view class="demo-block__body">
+					<l-qrcode value="img10.360buyimg.com/img/jfs/t1/182127/16/37474/11761/64659c31F0cd84976/21f25b952f03a49a.jpg" size="300rpx" :errorLevel="levels[index]"></l-qrcode>
+					<button type="primary" style="margin-top: 20rpx;" @click="onToggle">切换纠错等级：{{levels[index]}}</button>
+				</view>	
+			</view>
+			
+			<view class="demo-block card">
+				<text class="demo-block__title-text large">动态</text>
+				<view class="demo-block__body">
+					<l-qrcode :value="text" size="300rpx" :marginSize="1" bgColor="white"></l-qrcode>
+					<button type="primary" style="margin-top: 20rpx;"  @click="update">更新</button>
+				</view>	
+			</view>
+			
+		</view>	
+	</view>
+	
+</template>
+<script>
+	// import {ComponentPublicInstance} from 'vue'
+	export default {
+		name: 'lime-qrcode',
+		data() {
+			return {
+				text: 'qcoon.com.cn',
+				image: '',
+				index: 0,
+				levels: ['L', 'M', 'Q', 'H']
+			}
+		},
+		methods:{ 
+			success(src: string) {
+				console.log(`src`, src)
+			},
+			update() {
+				this.text =  `qcoon.cn?v=${Math.random()}`
+			},
+			onToggle() {
+				this.index++
+				this.index = this.index % this.levels.length
+			},
+			onClick() {
+				const el:LQrcodeComponentPublicInstance = this.$refs['qrcodeRef'] as LQrcodeComponentPublicInstance 
+				el.canvasToTempFilePath({
+					success:(res: TakeSnapshotSuccess)=>{
+						this.image = res.tempFilePath
+					}
+				})
+			}
+		},
+		mounted() {
+			
+		}
+	}
+</script>
+<style lang="scss">
+	
+	.demo-block {
+		margin: 32px 10px 0;
+		overflow: visible;
+		&.card{
+			background-color: white;
+			padding: 30rpx;
+			margin-bottom: 20rpx;
+		}
+		&__title {
+			margin: 0;
+			margin-top: 8px;
+			&-text {
+				color: rgba(0, 0, 0, 0.6);
+				font-weight: 400;
+				font-size: 14px;
+				line-height: 16px;
+				
+				&.large {
+					color: rgba(0, 0, 0, 0.9);
+					font-size: 18px;
+					font-weight: 700;
+					line-height: 26px;
+				}
+				&.ultra {
+					color: rgba(0, 0, 0, 0.9);
+					font-size: 24px;
+					font-weight: 700;
+					line-height: 32px;
+				}
+			}
+		}
+		&__desc-text {
+			color: rgba(0, 0, 0, 0.6);
+			margin: 8px 16px 0 0;
+			font-size: 14px;
+			line-height: 22px;
+		}
+		&__body {
+			margin: 16px 0;
+			overflow: visible;
+			.demo-block {
+				// margin-top: 0px;
+				margin: 0;
+			}
+		}
+	}
+</style>

@@ -1,0 +1,300 @@
+<template>
+	<!-- #ifndef APP || WEB -->
+	<canvas :style="styles" v-if="use2d" type="2d" :canvas-id="canvasId" :id="canvasId"></canvas>
+	<canvas :style="styles" v-else :canvas-id="canvasId" :id="canvasId"></canvas>
+	<!-- #endif  -->
+	<!-- #ifdef APP -->
+	<view class="l-qrcode" ref="drawableRef" :style="[styles]">
+		<image class="l-qrcode__icon" v-if="icon" :src="icon" :style="[iconStyle]"></image>
+	</view>
+	<!-- #endif  -->
+	<!-- #ifdef WEB -->
+	<view class="l-qrcode" ref="drawableRef" :style="[styles]"></view>
+	<!-- #endif  -->
+</template>
+<script lang="uts" setup>
+	/**
+	 * QRCode 二维码组件
+	 * @description 用于生成二维码图形，支持自定义图标和样式配置
+	 * <br>插件类型：LQrcodeComponentPublicInstance 
+	 * @tutorial https://ext.dcloud.net.cn/plugin?name=lime-qrcode
+	 * 
+	 * @property {string} value 二维码内容（支持文本/URL等）
+	 * @property {string} icon 中心图标路径（支持本地/网络路径）
+	 * @property {number | string} size 二维码尺寸
+	 * @property {number | string} iconSize 中心图标尺寸
+	 * @property {number} marginSize 二维码外边距（默认：0）
+	 * @property {string} color 二维码颜色（默认：#000000）
+	 * @property {string} bgColor 背景颜色（默认：#ffffff）
+	 * @property {boolean} bordered 显示边框（默认：false）
+	 * @property {'L' | 'M' | 'Q' | 'H'} errorLevel 容错等级（默认：'H'）
+	 * @value L 可恢复7%的数据
+	 * @value M 可恢复15%的数据  
+	 * @value Q 可恢复25%的数据
+	 * @value H 可恢复30%的数据
+	 * @property {boolean} useCanvasToTempFilePath 使用canvas生成临时路径（H5端可能需要）
+	 * @property {boolean} use2d 启用2D上下文渲染（性能优化，默认：false）
+	 */
+	import { type PropType, nextTick } from 'vue'
+	// #ifndef APP
+	import { createImage } from '@/uni_modules/lime-shared/createImage'
+	import { getCanvas, isCanvas2d } from './useCanvas'
+	import { QRCodeCanvas } from './qrcode.js';
+	import { QRCodePropsTypes , ImageSettings } from './type'
+	// #endif
+	// #ifdef APP-ANDROID || APP-HARMONY
+	import { QRCodeCanvas, type QRCodePropsTypes , type ImageSettings } from '@/uni_modules/lime-qrcodegen'
+	// #endif
+	// #ifdef APP-IOS
+	import { QRCodeCanvas, type QRCodePropsTypes , type ImageSettings } from './ios'
+	// #endif
+	// import { addUnit } from '@/uni_modules/lime-shared/addUnit'
+	// import { unitConvert } from '@/uni_modules/lime-shared/unitConvert'
+	// import { toBoolean } from '@/uni_modules/lime-shared/toBoolean'
+	import { addUnit, unitConvert } from './utils'
+	import { LQrcodeFailCallback, LQrcodeCompleteCallback, LQrcodeSuccessCallback} from './type'
+	
+	const name = 'l-qrcode'
+	const props = defineProps({
+		value: {
+			type: String
+		},
+		icon: {
+			type: String
+		},
+		// #ifdef APP-ANDROID
+		size: {
+			type: Object,
+			default: 160
+		},
+		iconSize: {
+			type: Object,
+			default: 40
+		},
+		// #endif
+		// #ifndef APP-ANDROID
+		size: {
+			type: [Number, String],
+			default: 160
+		},
+		iconSize: {
+			type: [Number, String],
+			default: 40
+		},
+		// #endif
+		marginSize: {
+			type: Number,
+			default: 0
+		},
+		color: {
+			type: String,
+			default: '#000'
+		},
+		bgColor: {
+			type: String,
+			default: 'transparent'
+		},
+		bordered: {
+			type: Boolean,
+			default: true
+		},
+		errorLevel: {
+			type: String as PropType<'L' | 'M' | 'Q' | 'H'>,
+			default: 'M' // 'L' | 'M' | 'Q' | 'H'
+		},
+		useCanvasToTempFilePath: {
+			type: Boolean,
+			default: false
+		},
+		use2d: {
+			type: Boolean,
+			default: true
+		}
+		// status: {
+		// 	type: String as PropType<'active'|'expired'|'loading'>,
+		// 	default: 'active' // active | expired | loading
+		// }
+	})
+	const emits = defineEmits(['success'])
+	const context = getCurrentInstance();
+	const canvasId = `l-qrcode${context!.uid}` 
+	const styles = computed<Map<string, any>>(():Map<string, any>=>{
+		const style = new Map<string, any>()
+		const size = addUnit(props.size);
+		if(size!=null){
+			style.set('width', size)
+			style.set('height', size)
+		}
+		style.set('background', props.bgColor)
+		return style
+	})
+	// #ifdef APP
+	const iconStyle = computed<Map<string, any>>(():Map<string, any>=>{
+		const style = new Map<string, any>()
+		const size = addUnit(props.iconSize);
+		// if(size!=null){
+			style.set('width', size)
+			style.set('height', size)
+		// }
+		return style
+	})
+	// #endif
+	const drawableRef = ref<UniElement|null>(null);
+	// #ifndef APP
+	let canvas:HTMLCanvasElement|null = null
+	// #endif
+	let qrcode:QRCodeCanvas|null = null
+	
+	const canvasToTempFilePath = (options: UTSJSONObject)=>{
+		const format =   options.getString('format') ?? 'png';
+		const fail =     options.get('fail') as LQrcodeFailCallback | null;
+		const complete = options.get('complete') as LQrcodeCompleteCallback | null;
+		const success =  options.get('success') as LQrcodeSuccessCallback | null;
+		// #ifdef APP
+		const newOptions = {
+			format,
+			fail,
+			complete,
+			success,
+		} as TakeSnapshotOptions
+		drawableRef.value!.takeSnapshot(newOptions)
+		// #endif
+		// #ifdef WEB
+		success?.({
+			tempFilePath: canvas?.toDataURL('image/'+format)
+		})
+		// #endif
+		
+	}
+	const render = ()=>{
+		const param:QRCodePropsTypes = {
+			value: props.value,
+			size:  unitConvert(props.size),
+			fgColor: props.color,
+			level: ['L', 'M', 'Q', 'H'].includes(props.errorLevel) ? props.errorLevel : 'M',
+			marginSize: props.marginSize,
+			includeMargin: props.bordered,
+			imageSettings: null,
+		} as QRCodePropsTypes
+		// #ifdef APP-HARMONY
+		param.value = props.value
+		param.size =  unitConvert(props.size)
+		param.fgColor = props.color
+		param.level = ['L', 'M', 'Q', 'H'].includes(props.errorLevel) ? props.errorLevel : 'M'
+		param.marginSize = props.marginSize
+		param.includeMargin = props.bordered
+		param.imageSettings = null
+		// #endif
+		if(props.icon != null){
+		// if(toBoolean(props.iconSize) && toBoolean(props.icon)){
+			const size = unitConvert(props.iconSize)
+			param.imageSettings = {
+				src: props.icon,
+				width: size,
+				height: size,
+				excavate: true
+			} as ImageSettings
+			
+			// #ifdef APP-HARMONY
+			param.imageSettings.src = props.icon
+			param.imageSettings.width = size
+			param.imageSettings.height = size
+			param.imageSettings.excavate = true
+			// #endif
+		}
+		qrcode?.render(param)
+		if(props.useCanvasToTempFilePath){
+			setTimeout(()=>{
+				canvasToTempFilePath({
+					success: (res: TakeSnapshotSuccess)=>{
+						emits('success', res.tempFilePath)
+					}
+				})
+			},100)
+		}
+	}
+	defineExpose({
+		canvasToTempFilePath
+	})
+	onMounted(()=>{
+		nextTick(()=>{
+			// #ifdef APP
+			requestAnimationFrame(()=> {
+				drawableRef.value?.getBoundingClientRectAsync()?.then(res => {
+					const ctx = drawableRef.value!.getDrawableContext();
+					qrcode = new QRCodeCanvas(ctx!)
+					watchEffect(()=>{
+						render()
+					})
+				})
+			})
+			
+			// #endif
+			// #ifdef WEB
+			canvas = document.createElement('canvas')
+			canvas!.style.width = '100%'
+			canvas!.style.height = '100%'
+			drawableRef.value!.appendChild(canvas!)
+			qrcode = new QRCodeCanvas(canvas, {
+				pixelRatio: uni.getSystemInfoSync().pixelRatio,
+				createImage: () => {
+					const image = new Image();
+					// @ts-ignore
+					image.crossOrigin = 'anonymous'; 
+					return image;
+				}
+			})
+			watchEffect(()=>{
+				render()
+			})
+			// #endif
+			// #ifndef APP || WEB
+			getCanvas(canvasId, { context }).then(res => {
+				canvas = res;
+				qrcode = new QRCodeCanvas(res, {
+					path2D: false,
+					pixelRatio: isCanvas2d && props.use2d ? uni.getSystemInfoSync().pixelRatio : 1,
+					createImage
+				})
+				watchEffect(()=>{
+					render()
+				})
+			})
+			// #endif
+			
+		})
+		
+	})
+	onUnmounted(()=>{
+		// #ifdef WEB
+		canvas?.remove();
+		// #endif
+		qrcode = null;
+	})
+</script>
+<style lang="scss">
+	.l-qrcode {
+		position: relative;
+		background-color: aqua;
+		justify-content: center;
+		align-items: center;
+
+		&-mask {
+			position: absolute;
+			// inset: 0;
+			// inset-block-start: 0;
+			// inset-inline-start: 0;
+			z-index: 10;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			// width: 100%;
+			// height: 100%;
+			color: rgba(0, 0, 0, 0.88);
+			line-height: 1.5714285714285714;
+			background: rgba(255, 255, 255, 0.96);
+			text-align: center;
+		}
+	}
+</style>

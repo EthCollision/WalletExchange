@@ -1,0 +1,160 @@
+// export * from '../qrcode'
+export * from '@/uni_modules/lime-qrcodegen/utssdk/interface';
+import { type QRCodePropsTypes , type ImageSettings, type QRCodeCallback } from '@/uni_modules/lime-qrcodegen/utssdk/interface'
+
+import { qrcodegen } from './qrcodegen'
+const Ecc = qrcodegen.QrCode.Ecc
+const QrCode = qrcodegen.QrCode
+type Modules = boolean[][];
+type Excavation = { x : number; y : number; w : number; h : number };
+type ImageSettingExcavation = {
+	x: number 
+	y: number 
+	h: number 
+	w: number 
+	excavation: Excavation
+}
+const ERROR_LEVEL_MAP = {
+	L: Ecc.LOW,
+	M: Ecc.MEDIUM,
+	Q: Ecc.QUARTILE,
+	H: Ecc.HIGH,
+};
+
+const DEFAULT_SIZE:number = 128;
+const DEFAULT_LEVEL:string = 'L';
+// const DEFAULT_BGCOLOR:string = '#FFFFFF';
+const DEFAULT_FGCOLOR:string = '#000000';
+const DEFAULT_INCLUDEMARGIN:boolean = false;
+
+const SPEC_MARGIN_SIZE : number = 4;
+const DEFAULT_MARGIN_SIZE : number = 0;
+
+// This is *very* rough estimate of max amount of QRCode allowed to be covered.
+// It is "wrong" in a lot of ways (area is a terrible way to estimate, it
+// really should be number of modules covered), but if for some reason we don't
+// get an explicit height or width, I'd rather default to something than throw.
+const DEFAULT_IMG_SCALE = 0.1;
+
+// We could just do this in generatePath, except that we want to support
+// non-Path2D canvas, so we need to keep it an explicit step.
+function excavateModules(modules : Modules, excavation : Excavation) : Modules {
+	const ox = excavation.x
+	const oy = excavation.y
+	const oh = excavation.h
+	const ow = excavation.w
+	return modules.slice().map((row, y):boolean[] => {
+		if (y < oy || y >= oy + oh) {
+			return row;
+		}
+		return row.map((cell, x):boolean => {
+			if (x < ox || x >= ox + ow) {
+				return cell;
+			}
+			return false;
+		});
+	});
+}
+
+function getImageSettings(
+	cells : Modules,
+	size : number,
+	margin : number,
+	imageSettings: ImageSettings | null
+) : ImageSettingExcavation | null {
+	if (imageSettings == null) {
+		return null;
+	}
+	// const result : UTSJSONObject = {}
+	const numCells = cells.length + margin * 2;
+	const defaultSize = Math.floor(size * DEFAULT_IMG_SCALE);
+	const scale = numCells / size;
+	
+	const width = imageSettings.width
+	const height = imageSettings.height 
+	const ox = imageSettings.x
+	const oy = imageSettings.y
+	const excavate = imageSettings.excavate
+	
+	const w = (width > 0 ? width : defaultSize) * scale;
+	const h = (height > 0 ? height: defaultSize) * scale;
+	const x = ox == null ? cells.length / 2 - w / 2 : ox * scale;
+	const y = oy == null ? cells.length / 2 - h / 2 : oy * scale;
+
+	let excavation: Excavation = {
+		x: 0,
+		y: 0,
+		w: 0,
+		h: 0,
+	};
+	if (excavate) {
+		let floorX = Math.floor(x);
+		let floorY = Math.floor(y);
+		let ceilW = Math.ceil(w + x - floorX);
+		let ceilH = Math.ceil(h + y - floorY);
+		// excavation = { x: floorX, y: floorY, w: ceilW, h: ceilH };
+		excavation.x = floorX
+		excavation.y = floorY
+		excavation.w = ceilW
+		excavation.h = ceilH
+	}
+
+	return { x, y, h, w, excavation } as ImageSettingExcavation;
+}
+function getMarginSize(includeMargin : boolean, marginSize: number|null) : number {
+	if (marginSize != null) {
+		return Math.floor(marginSize);
+	}
+	return includeMargin ? SPEC_MARGIN_SIZE : DEFAULT_MARGIN_SIZE;
+}
+export class QRCodeCanvas {
+	ctx : DrawableContext
+	constructor(ctx : DrawableContext) {
+		this.ctx = ctx
+	}
+	render(props : QRCodePropsTypes, cb : QRCodeCallback | null=null) {
+		const ctx = this.ctx
+		const value = props.value
+		const size = props.size ?? DEFAULT_SIZE 
+		const level = props.level ?? DEFAULT_LEVEL 
+		const fgColor = props.fgColor ?? DEFAULT_FGCOLOR
+		const includeMargin = props.includeMargin || DEFAULT_INCLUDEMARGIN 
+		const marginSize = props.marginSize
+		const imageSettings = props.imageSettings
+		if (value == null || value == '') {
+			return;
+		}
+		let cells = QrCode.encodeText(value, ERROR_LEVEL_MAP[level] as Ecc).getModules();
+		const margin = getMarginSize(includeMargin, marginSize);
+		const numCells = cells.length + margin * 2;
+		const scale = (size / numCells);
+		const calculatedImageSettings = getImageSettings(
+			cells,
+			size,
+			margin,
+			imageSettings
+		)
+		const haveImageToRender = calculatedImageSettings != null 
+		const excavation: Excavation | null = haveImageToRender ? calculatedImageSettings?.excavation : null
+		
+		if(haveImageToRender && excavation != null) {
+			cells = excavateModules(cells, excavation);
+		}
+		ctx.reset()
+		// ctx.clearRect(0, 0, size, size)
+		// ctx.fillStyle = bgColor;
+		// ctx.fillRect(0, 0, numCells, numCells);
+		ctx.fillStyle = fgColor;
+		cells.forEach(function (row, rdx) {
+			row.forEach(function (cell, cdx) {
+				if (cell) {
+					ctx.fillRect((cdx + margin) * scale, (rdx + margin) * scale, scale, scale);
+				}
+			});
+		});
+		ctx.update()
+		if(cb != null){
+			cb(cells)
+		}
+	}
+}

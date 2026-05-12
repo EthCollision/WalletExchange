@@ -1,0 +1,35 @@
+export function addUnit(value: any|null):string{
+	if(value == null){
+		return ''
+	}
+	value = `${value}` 
+	return /^(-)?\d+(\\.\d+)?$/.test(value) ?  `${value}px` : value
+}
+
+export function unitConvert(value: any|null): number{
+	if(typeof value == 'number'){
+		return value as number
+	}
+	if(typeof value == 'string'){
+		value = `${value}` 
+		if(/^(-)?\d+(\\.\d+)?$/.test(value)){
+			return parseFloat(value);
+		}
+		
+		const reg = /^-?([0-9]+)?([.]{1}[0-9]+){0,1}(em|rpx|px|%)$/g;
+		const results = reg.exec(value);
+		if (results == null) {
+			return 0;
+		}
+		const unit = results[3];
+		const v = parseFloat(value);
+		if (unit == 'rpx') {
+			const { windowWidth } = uni.getWindowInfo()
+			return windowWidth / 750 * v;
+		}
+		if (unit == 'px') {
+			return v;
+		}
+	}
+	return 0;
+}

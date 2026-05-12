@@ -1,0 +1,240 @@
+{
+  "easycom": {
+    "^u-(.*)": "@/uni_modules/vk-uview-ui/components/u-$1/u-$1.vue",
+    "^custom-(.*)": "@/components/custom-$1/custom-$1.vue"
+  },
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": {
+            "navigationStyle": "custom",
+            "app-plus": {
+              "titleNView": false
+            }
+          }
+    },
+    {
+      "path": "pages/market/market",
+      "style": {
+            "navigationStyle": "custom",
+            "app-plus": {
+              "titleNView": false
+            }
+          }
+    },
+    {
+      "path": "pages/trade/trade",
+      "style": {
+            "navigationStyle": "custom",
+            "app-plus": {
+              "titleNView": false
+            }
+          }
+    },
+    {
+      "path": "pages/contract/contract",
+      "style": {
+            "navigationStyle": "custom",
+            "app-plus": {
+              "titleNView": false
+            }
+          }
+    },
+    {
+      "path": "pages/asset/asset",
+      "style": {
+            "navigationStyle": "custom",
+            "app-plus": {
+              "titleNView": false
+            }
+          }
+    }
+  ],
+  "subPackages": [
+    {
+      "root": "sub_package",
+      "pages": [
+        {
+          "path": "trade/trade-xh",
+          "style": {
+            "navigationStyle": "custom",
+            "app-plus": {
+              "titleNView": false
+            }
+          }
+        },
+        {
+          "path": "trade/trade-gg",
+          "style": {
+            "navigationStyle": "custom",
+            "app-plus": {
+              "titleNView": false
+            }
+          }
+        },
+        {
+          "path": "contract/contract-ubw",
+          "style": {
+            "navigationStyle": "custom",
+            "app-plus": {
+              "titleNView": false
+            }
+          }
+        },
+        {
+          "path": "contract/contract-bbw",
+          "style": {
+            "navigationStyle": "custom",
+            "app-plus": {
+              "titleNView": false
+            }
+          }
+        },
+        {
+          "path": "transfer/transfer",
+          "style": {
+            "navigationStyle": "custom",
+            "app-plus": {
+              "titleNView": false
+            }
+          }
+        },
+        {
+          "path": "fund/fund-deposit-coin",
+          "style": {
+            "navigationStyle": "custom",
+            "app-plus": {
+              "titleNView": false
+            }
+          }
+        },
+        {
+          "path": "fund/fund-deposit-network",
+          "style": {
+            "navigationStyle": "custom",
+            "app-plus": {
+              "titleNView": false
+            }
+          }
+        },
+        {
+          "path": "fund/fund-deposit",
+          "style": {
+            "navigationStyle": "custom",
+            "app-plus": {
+              "titleNView": false
+            }
+          }
+        },
+        {
+          "path": "fund/fund-withdraw-coin",
+          "style": {
+            "navigationStyle": "custom",
+            "app-plus": {
+              "titleNView": false
+            }
+          }
+        },
+        {
+          "path": "fund/fund-withdraw-network",
+          "style": {
+            "navigationStyle": "custom",
+            "app-plus": {
+              "titleNView": false
+            }
+          }
+        },
+        {
+          "path": "fund/fund-withdraw",
+          "style": {
+            "navigationStyle": "custom",
+            "app-plus": {
+              "titleNView": false
+            }
+          }
+        },
+        {
+          "path": "notice/notice-list",
+          "style": {
+            "navigationStyle": "custom",
+            "app-plus": {
+              "titleNView": false
+            }
+          }
+        },
+        {
+          "path": "notice/notice-detail",
+          "style": {
+            "navigationStyle": "custom",
+            "app-plus": {
+              "titleNView": false
+            }
+          }
+        },
+        {
+          "path": "login/login",
+          "style": {
+            "navigationStyle": "custom",
+            "app-plus": {
+              "titleNView": false
+            }
+          }
+        },
+        {
+          "path": "login/register",
+          "style": {
+            "navigationStyle": "custom",
+            "app-plus": {
+              "titleNView": false
+            }
+          }
+        },
+        {
+          "path": "login/forgot-password",
+          "style": {
+            "navigationStyle": "custom",
+            "app-plus": {
+              "titleNView": false
+            }
+          }
+        },
+        {
+          "path": "setting/setting",
+          "style": {
+            "navigationStyle": "custom",
+            "app-plus": {
+              "titleNView": false
+            }
+          }
+        },
+        {
+          "path": "search/search",
+          "style": {
+            "navigationStyle": "custom",
+            "app-plus": {
+              "titleNView": false
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "Vex-Super Contracts",
+    "navigationBarBackgroundColor": "#f5f5f5",
+    "backgroundColor": "#f4f4f4",
+    "enablePullDownRefresh": false,
+    "app-plus": {
+      "safeArea": {
+        "top": true,
+        "bottom": true,
+        "left": false,
+        "right": false
+      }
+    },
+    "h5": {
+      "maxWidth": 1190
+    }
+  }
+}

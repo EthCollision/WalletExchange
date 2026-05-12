@@ -1,0 +1,109 @@
+{
+  "id": "lime-shared",
+  "displayName": "lime-shared",
+  "version": "0.4.1",
+  "description": "本人插件的几个公共函数，获取当前页，图片的base64转临时路径，图片的exif信息等",
+  "keywords": [
+    "lime-shared",
+    "exif"
+],
+  "repository": "",
+"engines": {
+    "uni-app": "^4.55",
+    "uni-app-x": "^4.55"
+  },
+  "dcloudext": {
+    "type": "sdk-js",
+    "sale": {
+      "regular": {
+        "price": "0.00"
+      },
+      "sourcecode": {
+        "price": "0.00"
+      }
+    },
+    "contact": {
+      "qq": ""
+    },
+    "declaration": {
+      "ads": "无",
+      "data": "无",
+      "permissions": "无"
+    },
+    "npmurl": "",
+    "darkmode": "x",
+    "i18n": "x",
+    "widescreen": "x"
+  },
+  "uni_modules": {
+    "dependencies": [],
+    "encrypt": [],
+    "platforms": {
+      "cloud": {
+        "tcb": "√",
+        "aliyun": "√",
+        "alipay": "√"
+      },
+      "client": {
+        "uni-app": {
+          "vue": {
+            "vue2": "√",
+            "vue3": "√"
+          },
+          "web": {
+            "safari": "√",
+            "chrome": "√"
+          },
+          "app": {
+            "vue": "√",
+            "nvue": "-",
+            "android": {
+              "extVersion": "",
+              "minVersion": "21"
+            },
+            "ios": "√",
+            "harmony": "√"
+          },
+          "mp": {
+            "weixin": "√",
+            "alipay": "√",
+            "toutiao": "√",
+            "baidu": "√",
+            "kuaishou": "-",
+            "jd": "-",
+            "harmony": "-",
+            "qq": "-",
+            "lark": "-"
+          },
+          "quickapp": {
+            "huawei": "-",
+            "union": "-"
+          }
+        },
+        "uni-app-x": {
+          "web": {
+            "safari": "√",
+            "chrome": "√"
+          },
+          "app": {
+            "android": {
+              "extVersion": "",
+              "minVersion": "21"
+            },
+            "ios": "√",
+            "harmony": "√"
+          },
+          "mp": {
+            "weixin": "√"
+          }
+        },
+        "App": {
+          "app-harmony": "u",
+          "app-nvue": "u",
+          "app-uvue": "y",
+          "app-vue": "u"
+        }
+      }
+    }
+  }
+}
