@@ -1,163 +1,293 @@
 <p align="center">
-  <img alt="logo" width=140" src="./img/logo.png">
+	<img alt="logo" width="140" src="./img/logo.png">
 </p>
-<h4 align="center">Open-Source Crypto Exchange App</h4>
+
+<h1 align="center">Crypto Exchange — Digital Asset Trading Solution</h1>
+
 <p align="center">
- <img src="https://img.shields.io/badge/-Blockchain%20Exchange-red.svg" alt="badge">
- <img src="https://img.shields.io/badge/-DEX%20Style-5c6bc0.svg" alt="badge">
- <img src="https://img.shields.io/badge/-Binance%20Inspired-purple.svg" alt="badge">
- <img src="https://img.shields.io/badge/-Spot%20Trading-orange.svg" alt="badge">
- <img src="https://img.shields.io/badge/-Futures%20Trading-yellow.svg" alt="badge">
- <img src="https://img.shields.io/badge/-On-chain%20Deposit%2FWithdraw-blue.svg" alt="badge">
- <img src="https://img.shields.io/badge/-Multi-chain%20Assets-09b3af.svg" alt="badge">
- <img src="https://img.shields.io/badge/-Matching%20Engine-3fb27f.svg" alt="badge">
+  <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License">
+  <img src="https://img.shields.io/badge/Vue-3.5-42b883.svg" alt="Vue 3">
+  <img src="https://img.shields.io/badge/Spring%20Boot-3.2-6db33f.svg" alt="Spring Boot">
+  <img src="https://img.shields.io/badge/Java-17-orange.svg" alt="Java 17">
+  <img src="https://img.shields.io/badge/Spot%20Trading-orange.svg" alt="Spot">
+  <img src="https://img.shields.io/badge/Futures%20Trading-yellow.svg" alt="Futures">
+  <img src="https://img.shields.io/badge/PC%20Web-1677ff.svg" alt="PC Web">
 </p>
+
 <p align="center">
-  <strong>Language:</strong> English | <a href="./README.md">中文</a> | <a href="./README_JA.md">日本語</a> | <a href="./README_KO.md">한국어</a>
+  <strong>Language:</strong> <a href="./README.md">中文</a> | English | <a href="./README_JA.md">日本語</a> | <a href="./README_KO.md">한국어</a>
 </p>
 
-<div align="center">
-  <table>
-    <tr>
-      <td align="right"><strong>Demo URL:</strong></td>
-      <td align="left"><a href="http://45.76.150.181:8089/" target="_blank" rel="noopener noreferrer">http://45.76.150.181:8089/</a></td>
-    </tr>
-    <tr>
-      <td align="right"><strong>Demo account:</strong></td>
-      <td align="left">111@gmail.com</td>
-    </tr>
-    <tr>
-      <td align="right"><strong>Password:</strong></td>
-      <td align="left">111111</td>
-    </tr>
-    <tr>
-      <td align="right"><strong>Email verification code:</strong></td>
-      <td align="left">123456</td>
-    </tr>
-  </table>
-</div>
+<p align="center">
+  A complete <strong>centralized digital asset exchange</strong> solution covering mobile, PC Web, admin console, and microservice backend.<br/>
+  Supports spot, margin, USDT-margined / coin-margined futures, deposit & withdrawal, transfers, real-time quotes, and K-line charts. Try the live demo — contact us for source code and deployment.
+</p>
 
-> **This project is a blockchain digital-asset exchange frontend system**, covering core scenarios such as user-side trading, asset management, and account center.  
-> It supports spot/futures trading, deposit & withdrawal, fund transfer, market subscription, K-line charts, multilingual support, and multi-platform release.  
-> Suitable for fast exchange setup and secondary development, with flexible module extension and backend integration.
+---
 
-### App Screenshots
+## Live Demo
+
+| Platform | URL | Description |
+|----------|-----|-------------|
+| **App H5** | [http://45.76.150.181:8089/](http://45.76.150.181:8089/) | Mobile browser experience |
+| **PC Web** | Same as above (or separate deployment URL) | Full desktop trading workspace |
+
+| Demo Account | Password | Email Code |
+|--------------|----------|------------|
+| `111@gmail.com` | `111111` | `123456` |
+
+> Demo environment is for feature preview only. Data may be reset periodically. Do not use for real assets.
+
+---
+
+## Features
+
+- **Multi-platform** — Mobile App (H5 / iOS / Android), PC Web, admin console
+- **Spot & Margin** — Limit / market / TP-SL orders, order book, K-line sync, borrow & repay
+- **Futures** — USDT-margined & coin-margined, isolated / cross margin, leverage, funding rate, liquidation
+- **Asset Management** — Deposit / withdrawal (multi-chain), transfers, full statement tracking
+- **Real-time Market** — WebSocket price, order book, trades, K-line push
+- **Account Security** — KYC, Google Auth, fund password, login protection
+- **Operations** — Banners, announcements, message center, live support, referral
+- **i18n** — Simplified Chinese / Traditional Chinese / English
+- **Extensible** — Decoupled frontend & backend, microservice architecture, modular customization
+
+---
+
+## Project Modules
+
+Modular architecture — each module can be deployed independently or combined:
+
+| Module | Description | Stack |
+|--------|-------------|-------|
+| **binance_app** | Mobile client | uni-app + Vue 3 + Vite |
+| **binance_pc** | PC Web client | Vue 3 + TypeScript + Element Plus |
+| **binance_coin** | Backend microservices | Spring Boot 3 + Spring Cloud + Nacos |
+
+Mobile and PC share the same backend API (`coin-app` microservice) with aligned features.
+
+> This repository is a **showcase and overview entry point** with live demo links, screenshots, and architecture docs. Full source code is available via contact below.
+
+---
+
+## System Architecture
+
+```mermaid
+flowchart TB
+    subgraph clients [Clients]
+        APP[binance_app<br/>Mobile H5/iOS/Android]
+        PC[binance_pc<br/>PC Web]
+    end
+
+    GW[Gateway]
+
+    subgraph services [Microservices]
+        APP_SVC[coin-app<br/>User API]
+        EXCHANGE[coin-exchange<br/>Matching Engine]
+        MARKET[coin-market<br/>Market Data]
+        SYSTEM[coin-system<br/>System Mgmt]
+        ADMIN_SVC[coin-admin<br/>Admin Service]
+    end
+
+    subgraph infra [Infrastructure]
+        NACOS[Nacos<br/>Registry / Config]
+        MYSQL[(MySQL)]
+        REDIS[(Redis)]
+        WS[WebSocket<br/>Real-time Push]
+    end
+
+    APP --> GW
+    PC --> GW
+    GW --> APP_SVC
+    GW --> EXCHANGE
+    GW --> MARKET
+    GW --> SYSTEM
+    GW --> ADMIN_SVC
+    APP_SVC --> MYSQL
+    APP_SVC --> REDIS
+    EXCHANGE --> MYSQL
+    EXCHANGE --> REDIS
+    MARKET --> REDIS
+    APP -.-> WS
+    PC -.-> WS
+    services --> NACOS
+```
+
+**Request flow:** Client → Gateway → Microservices → MySQL / Redis  
+**Real-time data:** WebSocket channel for quotes, order book, and trades
+
+---
+
+## Tech Stack
+
+| Layer | Technology | Notes |
+|-------|------------|-------|
+| Mobile | uni-app, Vue 3, Vite, Pinia, vk-uview-ui | H5 / iOS / Android |
+| PC Web | Vue 3, TypeScript, Vite, Element Plus | Fixed 1280px+ desktop layout |
+| Admin | Vue 3, Element Plus, Avue | Operations & business config |
+| Backend | Spring Boot 3.2, Spring Cloud Alibaba | Java 17 |
+| Microservices | Nacos, Gateway, OpenFeign | Service registry & routing |
+| Storage | MySQL, Redis, MyBatis-Plus | Business data + cache |
+| Real-time | WebSocket (MQTT wrapper) | Quotes / depth / K-line / trades |
+| Charts | lightweight-charts | K-line display |
+| Build | Maven (backend), Vite (frontend) | — |
+
+---
+
+## Screenshots
+
+### Mobile App
 
 <table align="center">
   <tr>
-    <td align="center"><img src="./img/en1.png" width="180" alt="en1" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
-    <td align="center"><img src="./img/en2.png" width="180" alt="en2" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
-    <td align="center"><img src="./img/en3.png" width="180" alt="en3" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
-    <td align="center"><img src="./img/en4.png" width="180" alt="en4" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
+    <td align="center"><img src="./img/en1.png" width="180" alt="App Home" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
+    <td align="center"><img src="./img/en2.png" width="180" alt="App Market" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
+    <td align="center"><img src="./img/en3.png" width="180" alt="App Trade" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
+    <td align="center"><img src="./img/en4.png" width="180" alt="App Futures" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
   </tr>
   <tr>
-    <td align="center"><img src="./img/en5.png" width="180" alt="en5" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
-    <td align="center"><img src="./img/en6.png" width="180" alt="en6" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
-    <td align="center"><img src="./img/en7.png" width="180" alt="en7" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
-    <td align="center"><img src="./img/en8.png" width="180" alt="en8" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
+    <td align="center"><img src="./img/en5.png" width="180" alt="App Assets" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
+    <td align="center"><img src="./img/en6.png" width="180" alt="App Deposit" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
+    <td align="center"><img src="./img/en7.png" width="180" alt="App K-line" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
+    <td align="center"><img src="./img/en8.png" width="180" alt="App Bills" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
   </tr>
 </table>
 
-### Admin Panel Screenshots
+### PC Web
 
 <table align="center">
   <tr>
-    <td align="center"><img src="./img/web1.png" width="300" alt="web1" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
-    <td align="center"><img src="./img/web2.png" width="300" alt="web2" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
-    <td align="center"><img src="./img/web3.png" width="300" alt="web3" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
-    <td align="center"><img src="./img/web7.png" width="300" alt="web7" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
+    <td align="center"><img src="./img/pc1.png" width="460" alt="PC Home" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
+    <td align="center"><img src="./img/pc2.png" width="460" alt="PC Market" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
   </tr>
   <tr>
-    <td align="center"><img src="./img/web4.png" width="300" alt="web4" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
-    <td align="center"><img src="./img/web5.png" width="300" alt="web5" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
-    <td align="center"><img src="./img/web6.png" width="300" alt="web6" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
-    <td align="center"><img src="./img/web8.png" width="300" alt="web8" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
+    <td align="center"><img src="./img/pc3.png" width="460" alt="PC Spot Trading" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
+    <td align="center"><img src="./img/pc5.png" width="460" alt="PC Futures" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="./img/pc6.png" width="460" alt="PC Wallet" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
+    <td align="center"><img src="./img/pc7.png" width="460" alt="PC Bills" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="./img/pc8.png" width="460" alt="PC Profile" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
+    <td align="center"><img src="./img/pc9.png" width="460" alt="PC Deposit" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
   </tr>
 </table>
 
-``` 
-binance_app (Frontend Architecture)
-    ├── pages                                // Main package (tab pages)
-    │       └── index                        // Home: assets, announcements, operations
-    │       └── market                       // Market: pairs, rankings, search entry
-    │       └── trade                        // Trading: spot/margin entry
-    │       └── contract                     // Futures: USDT-margined / coin-margined
-    │       └── asset                        // Asset overview
-    ├── sub_package                          // Feature sub-packages
-    │       └── login / trade / contract / kline / fund
-    │       └── transfer / borrow / bill / asset
-    │       └── message / notice / search / setting / customer
-    ├── components                           // Business components
-    │       └── custom-kline / custom-depth / custom-trade-order
-    │       └── custom-contract-order / custom-contract-position
-    │       └── custom-contract-lever / custom-contract-stoploss
-    │       └── custom-contract-addmargin / custom-home-navbar
-    ├── config                               // Config layer (api.js, baseConfig.js)
-    ├── utils                                // request, websocket, interceptor, coin, storage
-    ├── locale                               // i18n (zh-Hans / zh-Hant / English)
-    └── uni_modules/vk-uview-ui              // UI component library
+### Admin Console
+
+<table align="center">
+  <tr>
+    <td align="center"><img src="./img/web1.png" width="300" alt="Admin Dashboard" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
+    <td align="center"><img src="./img/web2.png" width="300" alt="Admin Users" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
+    <td align="center"><img src="./img/web3.png" width="300" alt="Admin Trading" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
+    <td align="center"><img src="./img/web7.png" width="300" alt="Admin Assets" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="./img/web4.png" width="300" alt="Admin Orders" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
+    <td align="center"><img src="./img/web5.png" width="300" alt="Admin Risk" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
+    <td align="center"><img src="./img/web6.png" width="300" alt="Admin Operations" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
+    <td align="center"><img src="./img/web8.png" width="300" alt="Admin Settings" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /></td>
+  </tr>
+</table>
+
+---
+
+## Directory Structure
+
+<details>
+<summary><strong>binance_app — Mobile</strong></summary>
+
+```
+binance_app/
+├── pages/              # Main tab pages (home, market, trade, futures, assets)
+├── sub_package/        # Sub-packages (login, K-line, fund, bills, settings, 40+ pages)
+├── components/         # Business components (custom-kline, custom-trade-order, etc.)
+├── config/             # api.js, baseConfig.js
+├── utils/              # request, websocket, coin formatting
+└── locale/             # i18n (zh-Hans / zh-Hant / English)
 ```
 
-``` 
-binance_app (Core Features)
-    ├── User & Account
-    │       └── Register / Login / Password recovery
-    │       └── KYC / Google Auth / Fund password / Security settings
-    ├── Market
-    │       └── Spot / USDT-M futures / Coin-M futures quotes
-    │       └── Rankings, search, favorites, realtime websocket push
-    ├── Trading (Spot + Margin)
-    │       └── Limit / Market / TP-SL orders, orderbook, trades, K-line
-    ├── Futures (USDT-M + Coin-M)
-    │       └── Open/close, leverage, isolated/cross, funding, positions
-    ├── Asset & Funds
-    │       └── Deposit, withdrawal, transfer, statements, account overview
-    ├── Operations & Support
-    │       └── Banners, announcements, message center, customer support
-    └── Platform Capabilities
-            └── i18n + multi-platform release (H5 / iOS / Android)
+</details>
+
+<details>
+<summary><strong>binance_pc — PC Web</strong></summary>
+
+```
+binance_pc/
+├── src/views/          # Pages (index, trade, contract, bills, settings)
+├── src/components/     # Business components (custom-kline, custom-trade-depth, etc.)
+├── src/router/         # Routes (routes-constants.ts)
+├── src/config/         # api.ts, baseConfig.ts
+└── src/utils/          # request, websocket, global modal controllers
 ```
 
-### Contact
+</details>
 
-For source licensing, custom development, deployment, and quotation, please contact:
+<details>
+<summary><strong>binance_coin — Backend Microservices</strong></summary>
+
+```
+binance_coin/
+├── coin-gateway/              # API Gateway
+├── coin-service/
+│   ├── coin-service-app/      # coin-app user business
+│   ├── coin-service-exchange/ # coin-exchange matching engine
+│   ├── coin-service-market/   # coin-market quotes
+│   ├── coin-service-system/   # coin-system system management
+│   └── coin-service-message/  # messaging
+├── coin-common/               # Shared modules (starters, utilities)
+└── coin-service-api/          # RPC interface definitions
+```
+
+</details>
+
+---
+
+## Commercial Support
+
+For **full source licensing, custom development, and deployment**, contact us via:
 
 <table align="center">
   <tr>
     <td align="center" valign="top">
-      <a href="https://t.me/web3_dev_gg" target="_blank">Telegram Support (Click to Chat)</a><br/>
-      <img alt="Telegram support" src="./img/tg.png" width="220" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /><br/>
+      <a href="https://t.me/BITCOIN1688" target="_blank">Telegram Support</a><br/>
+      <img alt="Telegram support" src="./img/tg.png" width="180" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" />
     </td>
     <td align="center" valign="top">
-      <a href="https://t.me/bitcoin5201688" target="_blank">Telegram Group (Click to Join)</a><br/>
-      <img alt="Telegram group" src="./img/tg_group.png" width="220" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" /><br/>
+      <a href="https://t.me/bitcoin5201688" target="_blank">Telegram Group</a><br/>
+      <img alt="Telegram group" src="./img/tg_group.png" width="180" style="border: 1px solid #e5e7eb; border-radius: 10px; padding: 2px;" />
     </td>
   </tr>
 </table>
+
+---
 
 ## FAQ
 
-### 1) Do you support secondary development?
-Yes. UI, trading flows, asset modules, operation sections, and API integrations can be customized based on your requirements.
+### How to get the source code?
+This repository is for showcase only and does not include full source code. For licensing, deployment, or custom development, please contact us via Telegram above.
 
-### 2) Is full source code included?
-Yes, frontend and backend source code can be delivered under a licensing plan, with private deployment support.
+### Do you support customization?
+Yes. UI, trading flows, asset modules, and operations can be tailored to your requirements with a decoupled architecture.
 
-### 3) Can you assist with deployment?
-Yes. We can help with staging/production deployment, domain setup, Nginx reverse proxy, and integration testing.
+### Does it include frontend and backend?
+The solution covers mobile, PC Web, admin console, and microservice backend — deliverable in flexible combinations.
 
-### 4) Do you support multi-language and multi-platform release?
-Yes. Currently supports Simplified Chinese, Traditional Chinese, and English; release targets include H5, iOS, and Android.
+### Which platforms are supported?
+Mobile: H5, iOS, Android; Desktop: PC Web; Admin: browser-based.
 
-### 5) How can we contact you?
-Please use the Telegram contact above. Sharing your requirement scope, budget range, and expected timeline will speed up evaluation.
+### Can you help with deployment?
+Yes. We support staging and production deployment, domain setup, and basic integration. Contact us for details.
+
+---
 
 ## Disclaimer
 
-This project is a technical demonstration and secondary-development base for digital asset exchange systems. It does not constitute investment advice or any financial service commitment.
+This project is a technical showcase and development base for digital asset exchange systems. **It does not constitute investment advice or any financial service commitment.**
 
-- For learning, technical evaluation, and demonstration purposes only.
-- Crypto and leveraged trading involve high risk; all compliance and operational liabilities are borne by the operator.
-- Provided "as is" without express or implied warranties of availability, stability, security, or profitability.
-- If user data is collected/processed, the operator must comply with applicable local laws and privacy regulations.
-- This project is inspired by mainstream exchange UX patterns and is not an official Binance product, nor affiliated/authorized by Binance.
+- For learning, demonstration, and technical evaluation only — not for unauthorized financial operations
+- Crypto and leveraged trading involve high risk; compliance and operational liability rests with the operator
+- Provided "as is" without warranties of availability, stability, security, or profitability
+- If user data is collected, the operator must comply with applicable laws and privacy regulations
+- Inspired by mainstream exchange UX patterns — **not an official Binance product**, with no affiliation or authorization from Binance
