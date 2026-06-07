@@ -195,7 +195,7 @@ flowchart TB
 
 ## 目录结构
 
-<details>
+<details open>
 <summary><strong>binance_app — 移动端</strong></summary>
 
 ```
@@ -210,7 +210,7 @@ binance_app/
 
 </details>
 
-<details>
+<details open>
 <summary><strong>binance_pc — PC Web 端</strong></summary>
 
 ```
@@ -224,7 +224,7 @@ binance_pc/
 
 </details>
 
-<details>
+<details open>
 <summary><strong>binance_coin — 后端微服务</strong></summary>
 
 ```

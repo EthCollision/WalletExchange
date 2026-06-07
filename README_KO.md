@@ -195,7 +195,7 @@ flowchart TB
 
 ## 디렉터리 구조
 
-<details>
+<details open>
 <summary><strong>binance_app — 모바일</strong></summary>
 
 ```
@@ -210,7 +210,7 @@ binance_app/
 
 </details>
 
-<details>
+<details open>
 <summary><strong>binance_pc — PC Web</strong></summary>
 
 ```
@@ -224,7 +224,7 @@ binance_pc/
 
 </details>
 
-<details>
+<details open>
 <summary><strong>binance_coin — 백엔드 마이크로서비스</strong></summary>
 
 ```

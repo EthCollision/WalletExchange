@@ -195,7 +195,7 @@ flowchart TB
 
 ## Directory Structure
 
-<details>
+<details open>
 <summary><strong>binance_app — Mobile</strong></summary>
 
 ```
@@ -210,7 +210,7 @@ binance_app/
 
 </details>
 
-<details>
+<details open>
 <summary><strong>binance_pc — PC Web</strong></summary>
 
 ```
@@ -224,7 +224,7 @@ binance_pc/
 
 </details>
 
-<details>
+<details open>
 <summary><strong>binance_coin — Backend Microservices</strong></summary>
 
 ```
