@@ -30,7 +30,7 @@
 | Platform | URL | Description |
 |----------|-----|-------------|
 | **App H5** | [http://45.76.150.181:8089/](http://45.76.150.181:8089/) | Mobile browser experience |
-| **PC Web** | Same as above (or separate deployment URL) | Full desktop trading workspace |
+| **PC Web** | [http://45.76.150.181:8091/](http://45.76.150.181:8091/) | Full desktop trading workspace |
 
 | Demo Account | Password | Email Code |
 |--------------|----------|------------|
